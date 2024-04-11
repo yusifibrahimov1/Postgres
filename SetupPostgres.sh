@@ -93,13 +93,10 @@ local   all             all                                     trust
 host    all             all             0.0.0.0/0               md5
 # Authentication for Admins
 host    postgres        postgres        0.0.0.0/0               md5
-																	...
 ## Authentication for Application
 host    app_database    app_user        0.0.0.0/0               md5
-																	...
 ## Authentication for Developers
 host    app_database    dev_user        0.0.0.0/0               md5
-																	...
 
 #------------------------------------------------------------------------------
 # DATABASE CONFIGURATION
