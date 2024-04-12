@@ -589,6 +589,27 @@ log_timezone = 'Asia/Baku'
 #track_functions = none			# none, pl, all
 #stats_fetch_consistency = cache	# cache, none, snapshot
 
+## track_activities: Bu parametr client tərəfindən cari icra edilən transactionlar üçün statistikaların saxlanması üçündür. Bu statistikalar pg_stat_activity view-da saxlanılır. 
+	track_activities = on
+## track_activity_query_size: Bu parametr client tərəfindən cari icra edilən transanctionlarda query-nin saxlanması üçün istifadə ediləcək memory təyin edilir. 
+	track_activity_query_size = 1024
+## track_counts: Bu parametr cədvəl üzərində baş verən dəyişiklilərin statistikalarını özündə saxlayır. Bu statistikalar pg_stat_all_tables view-da saxlanılır. 
+## Parametrin enable edilməsi vacibdir. Çünki Auvovacuum prosesi icra edilərkən bu statistikalardan istifadə edir. 
+	track_counts = on
+## track_io_timing: Bu parametr icra edilən transactionların diskə yaratdığı I/O load üzrə statistikalar saxlanılır. Parametrin enable edilməsi OS level load yaradacaq. 
+## Statistikalar pg_stat_database,pg_stat_statements view-larda saxlanılır. 
+	track_io_timing = off
+## track_wal_io_timing: Bu parametr icra edilən transactionların wal-da yaratdığı I/O üzrə statistikalar toplanır. Parametrin enable edilməsi OS level load yaradacaq. 
+## Statistikalar pg_stat_wal view-da saxlanılır. 
+	track_wal_io_timing = off
+
+## stats_fetch_consistency: Bu parametr statistik cədvəllərə müraciət edilərkən statistikaların necə gətiriləcəyi təyin edilir. 
+# stats_fetch_consistency = none => Bu hal üçün statistikalar hər dəfə shared buffers-dan gətiriləcək.
+# stats_fetch_consistency = cache => Bu hal üçün statistikalar cache-dən qaytarılacaq. Bu zaman dirty read yaranır ki, qaytarılan statistikalar cari zamana görə tam aktual dəyərlər olmaya bilər. 
+# stats_fetch_consistency = snapshot => Bu hal üçün statistikalar hər dəfə yaradılan snapshot-dan qayıdacaq. Bu zaman qayıdan dəyərlər cari dəyərlər olacaq ancaq bu hal üçün OS level load yaranacaq. 
+	stats_fetch_consistency = cache
+	stats_fetch_consistency = snapshot
+	stats_fetch_consistency = none
 
 # - Monitoring -
 
@@ -597,6 +618,26 @@ log_timezone = 'Asia/Baku'
 #log_parser_stats = off
 #log_planner_stats = off
 #log_executor_stats = off
+
+## compute_query_id: Bu parametr icra edilən transaction-larda queryID generate edilməsini təyin edir. 
+	# compute_query_id = auto => Bu hal üçün queryID default olaraq generate edilməyəcək. Ancaq pg_stat_statements kimi queryID tələb edən extension-lar istifadə edildikdə queryID 
+	# avtomatik olaraq generate ediləcək. Bu zaman həmçinin EXPLAIN istifadə edildikdə queryID görünəcək. 
+	# compute_query_id = on => Bu hal üçün queryID default olaraq generate ediləcək. Həmçinin EXPLAIN istifadə edildikdə queryID avtomatik olaraq görünəcək. 
+	# compute_query_id = regress => Bu hal üçün auto dəyərində olduğu kimi default olaraq queryID generate edilməyəcək. Ancaq pg_stat_statements kimi queryID tələb edən extension-lar 
+	# istifadə edildikdə queryID avtomatik olaraq generate ediləcək. Ancaq EXPLAIN istifadə edildikdə queryID görünməyəcək. 
+	# compute_query_id = off => Bu hal üçün default olaraq queryID onu tələb edən extension olmasından asılı olmaraq generate edilməyəcək. 
+	compute_query_id = auto
+	compute_query_id = regress
+	compute_query_id = off
+	compute_query_id = regress
+## log_statement_stats: Bu parametr icra edilən transactionların Query statistikalarının log file-a yazılmasını təmin edir. Bu hal üçün statistikalar log file-a yazılmayacaq. 
+## Ancaq bu parametr log_parser_stats, log_planner_stats, log_executor_stats parametrləri ilə eyni zamanda enable edilə bilməz. 
+## log_parser_stats/log_planner_stats/log_executor_stats: Bu parametrlə müvafiq olaraq icra edilən transctionların parse,plan,execute stateləri üzrə olan statistikalarının log file-a 
+## yazılmasını təmin edir. Bu hal üçün müvafiq statistikalar log file-a yazılmayacaq. 
+	log_statement_stats = off
+	log_parser_stats = off
+	log_planner_stats = off
+	log_executor_stats = off
 
 
 #------------------------------------------------------------------------------
