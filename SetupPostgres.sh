@@ -143,9 +143,6 @@ max_parallel_maintenance_workers = 4
 
 ###### BACKGROUND PROCESSES ######
 
-#### WalWriter Process
-wal_writer_delay = 200ms
-
 #### Archiver Process
 archive_mode = on
 archive_command = 'true'
@@ -164,62 +161,35 @@ bgwriter_delay = 200ms
 bgwriter_lru_maxpages = 10000
 bgwriter_lru_multiplier = 5.0
 
-#### Concurrently Vacuum Process
-vacuum_cost_limit = 200
-vacuum_cost_delay = 2ms
-vacuum_cost_page_hit = 1
-vacuum_cost_page_miss = 2
-vacuum_cost_page_dirty = 20
-
 #### AutoVacuum Processes
 autovacuum = on
 log_autovacuum_min_duration = 0
 autovacuum_max_workers = 3
 autovacuum_naptime = 1min
-autovacuum_vacuum_threshold = 100
+autovacuum_vacuum_threshold = 1000
 autovacuum_vacuum_insert_threshold = 1000
-autovacuum_analyze_threshold = 100
+autovacuum_analyze_threshold = 1000
 autovacuum_vacuum_scale_factor = 0.1
 autovacuum_vacuum_insert_scale_factor = 0.1
 autovacuum_analyze_scale_factor = 0.1
-autovacuum_freeze_max_age = 200000000
-autovacuum_multixact_freeze_max_age = 400000000
 autovacuum_vacuum_cost_delay = 2ms
 autovacuum_vacuum_cost_limit = -1
 
 #### Statistic Collector
 track_io_timing = on
 track_wal_io_timing = on
-ompute_query_id = on
+compute_query_id = on
 
 #### Logger Process
 logging_collector = on
-log_destination = 'stderr'
-log_filename = 'postgresql-%a.log'
-log_rotation_age = 1d
-log_rotation_size = 0
-log_truncate_on_rotation = on
 log_line_prefix = '< %m user=%u db=%d host=%h  queryID=%Q %a [%p] '
 log_lock_waits = on
-log_min_messages = warning
-log_min_error_statement = error
 log_error_verbosity = default
 log_min_duration_statement = 10000
-log_duration = off
 log_parameter_max_length = -1
 log_parameter_max_length_on_error = -1
 log_statement = 'none'
-log_statement_stats = off
-log_parser_stats = off
-log_planner_stats = off
-log_executor_stats = off
 log_statement_sample_rate = 1.0
-debug_print_parse = off
-debug_print_rewritten = off
-log_connections = off
-log_disconnections = off
-log_replication_commands = off
-log_temp_files = 0
 
 
 
